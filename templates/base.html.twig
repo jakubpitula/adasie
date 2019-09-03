@@ -6,7 +6,11 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block header %}
+            <p><a href="{{path('vote')}}">Głosowanie</a></p>
+        {% endblock %}
+        {% block body %}
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

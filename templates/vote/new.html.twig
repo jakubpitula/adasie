@@ -1,1 +1,9 @@
-{{ form(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}Vote{% endblock %}
+
+{% block body %}
+    <p><a href="{{ path('teacher_index') }}">Teacher List</a></p>
+    <p><a href="{{ path('category_index') }}">Category List</a></p>
+    {{form(form)}}
+{% endblock %}
