@@ -23,6 +23,11 @@ class Teacher
      */
     private $votes;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
     public function __construct()
     {
         $this->votes = new ArrayCollection();
@@ -60,6 +65,18 @@ class Teacher
                 $vote->setTeacher(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

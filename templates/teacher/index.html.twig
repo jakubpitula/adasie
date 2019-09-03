@@ -1,20 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TeacherController!{% endblock %}
+{% block title %}Teacher index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Teacher index</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for teacher in teachers %}
+            <tr>
+                <td>{{ teacher.id }}</td>
+                <td>{{ teacher.name }}</td>
+                <td>
+                    <a href="{{ path('teacher_show', {'id': teacher.id}) }}">show</a>
+                    <a href="{{ path('teacher_edit', {'id': teacher.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/jakub/adasie/src/Controller/TeacherController.php'|file_link(0) }}">src/Controller/TeacherController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/jakub/adasie/templates/teacher/index.html.twig'|file_link(0) }}">templates/teacher/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <a href="{{ path('teacher_new') }}">Create new</a>
 {% endblock %}
