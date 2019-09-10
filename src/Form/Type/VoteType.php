@@ -12,12 +12,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use App\Entity\Teacher;
 use App\Repository\CategoryRepository;
 use App\Entity\Catgory;
+use App\Entity\Vote;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VoteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        echo $count;
+        echo $options['count']; 
 
         $builder
             ->add('teacher', EntityType::class, [
@@ -27,5 +29,13 @@ class VoteType extends AbstractType
             ->add('category', ChoiceType::class)
             ->add('save', SubmitType::class, ['label' => 'Zagłosuj'])
         ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Vote::class,
+            'count' => null
+        ]);
     }
 }
