@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Vote;
+use App\Entity\Teacher;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Form\CategoryType;
 use App\Form\Type\VoteType;
 use App\Repository\CategoryRepository;
@@ -11,9 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
-require_once '../vendor/autoload.php';
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CategoryController extends AbstractController
 {
@@ -97,14 +98,6 @@ class CategoryController extends AbstractController
     /**
      * @Route("/", name="vote")
      */
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        // ...
-        $resolver->setRequired('count');
-        // type validation - User instance or int, you can also pick just one.
-        $resolver->setAllowedTypes('count', 'int');
-    }
 
     public function newVote (Request $request)
     {
