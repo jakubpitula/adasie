@@ -95,41 +95,42 @@ class CategoryController extends AbstractController
         return $this->redirectToRoute('category_index');
     }
 
-    /**
-     * @Route("/", name="vote")
-     */
+    // /**
+    //  * @Route("/", name="vote")
+    //  */
 
-    public function newVote (Request $request)
-    {
-        $vote = new Vote();
+    // public function newVote (Request $request)
+    // {
+    //     $vote = new Vote();
 
-        $categories = $this->getDoctrine()
-        ->getRepository(Category::class)
-        ->findAll();
+    //     $categories = $this->getDoctrine()
+    //     ->getRepository(Category::class)
+    //     ->findAll();
 
-        $count = count($categories);
+    //     // $count = count($categories);
 
-        $form = $this->createForm(VoteType::class, $vote, array(
-            'count' => $count
-        ));
+    //     $form = $this->createForm(VoteType::class, $vote, array(
+    //         'categories' => $categories
+    //     ));
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $vote = $form->getData();
+    //     $form->handleRequest($request);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         // $form->getData() holds the submitted values
+    //         // but, the original `$task` variable has also been updated
+    //         $vote = $form->getData();
     
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($vote);
-            $entityManager->flush();
+    //         // ... perform some action, such as saving the task to the database
+    //         // for example, if Task is a Doctrine entity, save it!
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->persist($vote);
+    //         $entityManager->flush();
     
-            return $this->redirectToRoute('vote');
-        }
+    //         return $this->redirectToRoute('vote');
+    //     }
 
-        return $this->render('vote/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
+    //     return $this->render('vote/new.html.twig', [
+    //         'form' => $form->createView(),
+    //         'categories' => $categories
+    //     ]);
+    // }
 }

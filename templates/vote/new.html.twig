@@ -1,9 +1,21 @@
-{% extends 'base.html.twig' %}
 
 {% block title %}Vote{% endblock %}
 
 {% block body %}
+    {{dump(form.vars.value.categories)}}
     <p><a href="{{ path('teacher_index') }}">Teacher List</a></p>
     <p><a href="{{ path('category_index') }}">Category List</a></p>
-    {{form(form)}}
+
+    {{ form_start(form) }}
+    {# render the task's only field: description #}
+    {# {{ form_row(form.vars.data.id) }} #}
+
+    <h3>Categories</h3>
+    <ul class="">
+        {# iterate over each existing tag and render its only field: name #}
+        {% for cat in form.categories %}
+            {{form_row(cat.name)}}
+        {% endfor %}
+    </ul>
+{{ form_end(form) }}
 {% endblock %}

@@ -19,14 +19,14 @@ class Teacher
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="teacher")
-     */
-    private $votes;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Vote", mappedBy="teachers")
+     */
+    private $votes;
 
     public function __construct()
     {
@@ -36,6 +36,18 @@ class Teacher
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -50,7 +62,7 @@ class Teacher
     {
         if (!$this->votes->contains($vote)) {
             $this->votes[] = $vote;
-            $vote->setTeacher($this);
+            $vote->addTeacher($this);
         }
 
         return $this;
@@ -60,23 +72,8 @@ class Teacher
     {
         if ($this->votes->contains($vote)) {
             $this->votes->removeElement($vote);
-            // set the owning side to null (unless already changed)
-            if ($vote->getTeacher() === $this) {
-                $vote->setTeacher(null);
-            }
+            $vote->removeTeacher($this);
         }
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }

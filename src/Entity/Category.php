@@ -19,14 +19,14 @@ class Category
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="category")
-     */
-    private $votes;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Vote", mappedBy="categories")
+     */
+    private $votes;
 
     public function __construct()
     {
@@ -36,6 +36,18 @@ class Category
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -50,7 +62,7 @@ class Category
     {
         if (!$this->votes->contains($vote)) {
             $this->votes[] = $vote;
-            $vote->setCategory($this);
+            $vote->addCategory($this);
         }
 
         return $this;
@@ -60,23 +72,8 @@ class Category
     {
         if ($this->votes->contains($vote)) {
             $this->votes->removeElement($vote);
-            // set the owning side to null (unless already changed)
-            if ($vote->getCategory() === $this) {
-                $vote->setCategory(null);
-            }
+            $vote->removeCategory($this);
         }
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }
