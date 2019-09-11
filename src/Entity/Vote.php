@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,42 +19,74 @@ class Vote
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Teacher", inversedBy="votes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="votes")
      */
-    private $teacher;
+    private $categories;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="votes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Teacher", inversedBy="votes")
      */
-    private $category;
+    private $teachers;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+        $this->teachers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTeacher(): ?Teacher
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
     {
-        return $this->teacher;
+        return $this->categories;
     }
 
-    public function setTeacher(?Teacher $teacher): self
+    public function addCategory(Category $category): self
     {
-        $this->teacher = $teacher;
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
 
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function removeCategory(Category $category): self
     {
-        return $this->category;
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
+
+        return $this;
     }
 
-    public function setCategory(?Category $category): self
+    /**
+     * @return Collection|Teacher[]
+     */
+    public function getTeachers(): Collection
     {
-        $this->category = $category;
+        return $this->teachers;
+    }
+
+    public function addTeacher(Teacher $teacher): self
+    {
+        if (!$this->teachers->contains($teacher)) {
+            $this->teachers[] = $teacher;
+        }
+
+        return $this;
+    }
+
+    public function removeTeacher(Teacher $teacher): self
+    {
+        if ($this->teachers->contains($teacher)) {
+            $this->teachers->removeElement($teacher);
+        }
 
         return $this;
     }
