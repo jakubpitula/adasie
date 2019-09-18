@@ -28,9 +28,15 @@ class Teacher
      */
     private $votes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\TeacherVote", mappedBy="teachers")
+     */
+    private $teacherVotes;
+
     public function __construct()
     {
         $this->votes = new ArrayCollection();
+        $this->teacherVotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +79,34 @@ class Teacher
         if ($this->votes->contains($vote)) {
             $this->votes->removeElement($vote);
             $vote->removeTeacher($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TeacherVote[]
+     */
+    public function getTeacherVotes(): Collection
+    {
+        return $this->teacherVotes;
+    }
+
+    public function addTeacherVote(TeacherVote $teacherVote): self
+    {
+        if (!$this->teacherVotes->contains($teacherVote)) {
+            $this->teacherVotes[] = $teacherVote;
+            $teacherVote->addTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeacherVote(TeacherVote $teacherVote): self
+    {
+        if ($this->teacherVotes->contains($teacherVote)) {
+            $this->teacherVotes->removeElement($teacherVote);
+            $teacherVote->removeTeacher($this);
         }
 
         return $this;
