@@ -17,33 +17,34 @@ use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Entity\Category;
 use App\Entity\Vote;
+use App\Entity\TeacherVote;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VoteType extends AbstractType
+class TeacherVoteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // dd($options['data']->getCategories());
-        $builder->add('categories', CollectionType::class, [
-            'entry_type' => TeacherVoteType::class,
-            'entry_options' => [
-                'label' => false,
-                'data' => $options['data']
-            ]
+        // dd($options);
+        $builder->add('teachers', EntityType::class, [
+            'class' => Teacher::class,
+            'choice_label' => 'name',
+            'mapped' => false,
+            'label' => false
         ])
-        // ->add('categories', CollectionType::class, [
-        //     'entry_type' => CategoryType::class,
-        //     'entry_options' => ['label' => false],
-        // ])
-        ->add('Zagłosuj', SubmitType::class)
+        ->add('categories', EntityType::class, [
+            'class' => Category::class,
+            'choice_label' => 'name',
+            'mapped' => false,
+            'label' => false
+        ])
         ;
 
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Vote::class,
-        ]);
-    }
+    // public function configureOptions(OptionsResolver $resolver)
+    // {
+    //     $resolver->setDefaults([
+    //          'data_class' => TeacherVote::class,
+    //     ]);
+    // }
 }
