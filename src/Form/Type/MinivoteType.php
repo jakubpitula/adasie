@@ -31,7 +31,6 @@ class MinivoteType extends AbstractType
             'label' => false
         ])
         ;
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

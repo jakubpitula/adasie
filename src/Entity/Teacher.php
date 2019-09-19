@@ -24,12 +24,12 @@ class Teacher
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Vote", mappedBy="teachers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Vote", mappedBy="teachers", cascade={"persist"})
      */
     private $votes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="teacher")
+     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="teacher", cascade={"persist"})
      */
     private $minivotes;
 
@@ -116,4 +116,8 @@ class Teacher
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
