@@ -34,10 +34,6 @@ class VoteType extends AbstractType
                 'label' => false,
             ]
         ])
-        // ->add('categories', CollectionType::class, [
-        //     'entry_type' => CategoryType::class,
-        //     'entry_options' => ['label' => false],
-        // ])
         ->add('submit', SubmitType::class)
         ;
 

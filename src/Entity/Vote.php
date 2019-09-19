@@ -19,17 +19,17 @@ class Vote
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="votes")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="votes", cascade={"persist"})
      */
     private $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Teacher", inversedBy="votes")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Teacher", inversedBy="votes", cascade={"persist"})
      */
     private $teachers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="vote")
+     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="vote", cascade={"persist"})
      */
     private $minivotes;
 
@@ -126,5 +126,10 @@ class Vote
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getId();
     }
 }

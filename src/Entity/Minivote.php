@@ -17,17 +17,17 @@ class Minivote
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="minivotes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="minivotes",  cascade={"persist"})
      */
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Teacher", inversedBy="minivotes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Teacher", inversedBy="minivotes", cascade={"persist"})
      */
     private $teacher;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Vote", inversedBy="minivotes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Vote", inversedBy="minivotes", cascade={"persist"})
      */
     private $vote;
 
@@ -70,5 +70,10 @@ class Minivote
         $this->vote = $vote;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getId();
     }
 }

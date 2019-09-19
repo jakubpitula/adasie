@@ -24,12 +24,12 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Vote", mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Vote", mappedBy="categories", cascade={"persist"})
      */
     private $votes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="category", cascade={"persist"})
      */
     private $minivotes;
 
@@ -113,6 +113,11 @@ class Category
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 
 }

@@ -9,6 +9,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Votes</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -17,6 +18,7 @@
             <tr>
                 <td>{{ teacher.id }}</td>
                 <td>{{ teacher.name }}</td>
+                <td>{{teacher.minivotes|length}}</td>
                 <td>
                     <a href="{{ path('teacher_show', {'id': teacher.id}) }}">show</a>
                     <a href="{{ path('teacher_edit', {'id': teacher.id}) }}">edit</a>
