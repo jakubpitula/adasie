@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Vote;
 use App\Form\Type\VoteType;
 use App\Entity\Category;
+use App\Entity\Minivote;
 use App\Entity\Teacher;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -50,16 +51,18 @@ class VoteController extends AbstractController
         */
 
         foreach($categories as $cat){
-            $vote->getCategories()->add($cat);
+            $minivote = new Minivote();
+            $minivote->setCategory($cat);
+            $vote->getMinivotes()->add($minivote);
         }
 
-        $teachers = $this->getDoctrine()
-        ->getRepository(Teacher::class)
-        ->findAll();
+        // $teachers = $this->getDoctrine()
+        // ->getRepository(Teacher::class)
+        // ->findAll();
 
-        foreach($teachers as $teacher){
-            $vote->getTeachers()->add($teacher);
-        }
+        // foreach($teachers as $teacher){
+        //     $vote->getTeachers()->add($teacher);
+        // }
         // $count = count($categories);
 
         $form = $this->createForm(VoteType::class, $vote);

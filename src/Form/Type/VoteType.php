@@ -23,19 +23,22 @@ class VoteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // dd($options['data']->getCategories());
-        $builder->add('categories', CollectionType::class, [
-            'entry_type' => TeacherVoteType::class,
+        $categories = $options['data']->getCategories();
+        
+        foreach ($categories as $cat){
+            echo $cat->getName().' ';
+        }
+        $builder->add('minivotes', CollectionType::class, [
+            'entry_type' => MinivoteType::class,
             'entry_options' => [
                 'label' => false,
-                'data' => $options['data']
             ]
         ])
         // ->add('categories', CollectionType::class, [
         //     'entry_type' => CategoryType::class,
         //     'entry_options' => ['label' => false],
         // ])
-        ->add('Zagłosuj', SubmitType::class)
+        ->add('submit', SubmitType::class)
         ;
 
     }

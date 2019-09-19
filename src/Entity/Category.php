@@ -28,9 +28,15 @@ class Category
      */
     private $votes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="category")
+     */
+    private $minivotes;
+
     public function __construct()
     {
         $this->votes = new ArrayCollection();
+        $this->minivotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +79,37 @@ class Category
         if ($this->votes->contains($vote)) {
             $this->votes->removeElement($vote);
             $vote->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Minivote[]
+     */
+    public function getMinivotes(): Collection
+    {
+        return $this->minivotes;
+    }
+
+    public function addMinivote(Minivote $minivote): self
+    {
+        if (!$this->minivotes->contains($minivote)) {
+            $this->minivotes[] = $minivote;
+            $minivote->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMinivote(Minivote $minivote): self
+    {
+        if ($this->minivotes->contains($minivote)) {
+            $this->minivotes->removeElement($minivote);
+            // set the owning side to null (unless already changed)
+            if ($minivote->getCategory() === $this) {
+                $minivote->setCategory(null);
+            }
         }
 
         return $this;
