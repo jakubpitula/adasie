@@ -29,14 +29,15 @@ class Teacher
     private $votes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\TeacherVote", mappedBy="teachers")
+     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="teacher")
      */
-    private $teacherVotes;
+    private $minivotes;
 
     public function __construct()
     {
         $this->votes = new ArrayCollection();
         $this->teacherVotes = new ArrayCollection();
+        $this->minivotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,28 +86,31 @@ class Teacher
     }
 
     /**
-     * @return Collection|TeacherVote[]
+     * @return Collection|Minivote[]
      */
-    public function getTeacherVotes(): Collection
+    public function getMinivotes(): Collection
     {
-        return $this->teacherVotes;
+        return $this->minivotes;
     }
 
-    public function addTeacherVote(TeacherVote $teacherVote): self
+    public function addMinivote(Minivote $minivote): self
     {
-        if (!$this->teacherVotes->contains($teacherVote)) {
-            $this->teacherVotes[] = $teacherVote;
-            $teacherVote->addTeacher($this);
+        if (!$this->minivotes->contains($minivote)) {
+            $this->minivotes[] = $minivote;
+            $minivote->setTeacher($this);
         }
 
         return $this;
     }
 
-    public function removeTeacherVote(TeacherVote $teacherVote): self
+    public function removeMinivote(Minivote $minivote): self
     {
-        if ($this->teacherVotes->contains($teacherVote)) {
-            $this->teacherVotes->removeElement($teacherVote);
-            $teacherVote->removeTeacher($this);
+        if ($this->minivotes->contains($minivote)) {
+            $this->minivotes->removeElement($minivote);
+            // set the owning side to null (unless already changed)
+            if ($minivote->getTeacher() === $this) {
+                $minivote->setTeacher(null);
+            }
         }
 
         return $this;

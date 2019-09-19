@@ -17,34 +17,27 @@ use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Entity\Category;
 use App\Entity\Vote;
-use App\Entity\TeacherVote;
+use App\Entity\Minivote;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TeacherVoteType extends AbstractType
+class MinivoteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // dd($options);
-        $builder->add('teachers', EntityType::class, [
+        $builder
+        ->add('teacher', EntityType::class, [
             'class' => Teacher::class,
             'choice_label' => 'name',
-            'mapped' => false,
-            'label' => false
-        ])
-        ->add('categories', EntityType::class, [
-            'class' => Category::class,
-            'choice_label' => 'name',
-            'mapped' => false,
             'label' => false
         ])
         ;
 
     }
 
-    // public function configureOptions(OptionsResolver $resolver)
-    // {
-    //     $resolver->setDefaults([
-    //          'data_class' => TeacherVote::class,
-    //     ]);
-    // }
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Minivote::class,
+        ]);
+    }
 }

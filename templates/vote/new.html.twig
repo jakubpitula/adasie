@@ -1,22 +1,23 @@
-
+{% extends 'base.html.twig' %}
 {% block title %}Vote{% endblock %}
 
 {% block body %}
-    {{dump(form)}}
-    {# {{dump(form.categories.vars.value)}} #}
+    {# {{dump(form.minivotes)}} #}
 
     <p><a href="{{ path('teacher_index') }}">Teacher List</a></p>
     <p><a href="{{ path('category_index') }}">Category List</a></p>
 
     {{ form_start(form) }}
-    {# render the task's only field: description #}
-    {# {{ form_row(form.vars.data.id) }} #}
 
-    <h3>Categories</h3>
-    <ul class="">
-        {% for cat in form.categories %}
-            {{form_row(cat, {'label': 1})}}
-        {% endfor %}
-    </ul>
+    <div class="row d-flex justify-content-center">
+    {% for minivote in form.minivotes %}
+        <div class="col-xs-4">
+            {{ form_row(minivote, {'label': minivote.vars.value.category.name}) }}
+        </div>
+    {% endfor %}
+    </div>
+    <div class="d-flex justify-content-center">
+        {{form_row(form.submit, {'label': 'Zagłosuj!'})}}
+    </div>
 {{ form_end(form) }}
 {% endblock %}
