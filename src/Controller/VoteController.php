@@ -17,6 +17,9 @@ use App\Form\TeacherType;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Repository\VoteRepository;
+use App\Repository\TeacherRepository;
+use App\Repository\MinivoteRepository;
 
 
 class VoteController extends AbstractController
@@ -28,31 +31,15 @@ class VoteController extends AbstractController
     public function new (Request $request)
     {
         $vote = new Vote();
-        // $cat1 = new Category();
-        // $cat1->setName('tag1');
-        // $vote->getCategories()->add($cat1);
-        // $cat2 = new Category();
-        // $cat2->setName('tag2');
-        // $vote->getCategories()->add($cat2);
-        // $teach1 = new Teacher();
-        // $teach1->setName('someteacher');
-        // $vote->getTeachers()->add($teach1);
-        // $teach2 = new Teacher();
-        // $teach2->setName('someteacdher');
-        // $vote->getTeachers()->add($teach2);
 
         $categories = $this->getDoctrine()
         ->getRepository(Category::class)
         ->findAll();
-        
-        /* TODO:
-        *  POPRAWIĆ CAŁĄ FUNKCJONALNOŚĆ 
-        *  COŚ W STYLU VOTES->MINIVOTES->[PO JEDNYM (USTALONA CATEGORY, TEACHER ENTITYTYPE)]
-        */
 
         foreach($categories as $cat){
             $minivote = new Minivote();
             $minivote->setCategory($cat);
+            $minivote->setVote($vote);
             $vote->getMinivotes()->add($minivote);
         }
 
@@ -85,6 +72,52 @@ class VoteController extends AbstractController
         return $this->render('vote/new.html.twig', [
             'form' => $form->createView(),
             // 'categories' => $categories
+        ]);
+    }
+
+    /**
+     * @Route("/votes", name="vote_index", methods={"GET"})
+     */
+    public function index(MinivoteRepository $minivoteRepository, VoteRepository $voteRepository, CategoryRepository $categoryRepository, TeacherRepository $teacherRepository): Response
+    {
+
+        return $this->render('vote/index.html.twig', [
+            'votes' => $voteRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="vote_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Vote $vote): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$vote->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($vote);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('vote_index');
+    }
+
+    /**
+     * @Route("/{id}/edit", name="vote_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Vote $vote): Response
+    {
+        $form = $this->createForm(VoteType::class, $vote);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('vote_index');
+        }
+
+        return $this->render('vote/edit.html.twig', [
+            'vote' => $vote,
+            'form' => $form->createView(),
         ]);
     }
 }

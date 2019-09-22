@@ -14,7 +14,13 @@
     </head>
     <body>
         {% block header %}
-            <p><a href="{{path('vote')}}">Głosowanie</a></p>
+        <div class="row d-flex justify-content-center">
+            <p class="p-3"><a href="{{path('vote')}}">Głosowanie</a></p>
+            <p class="p-3"><a href="{{path('minivote')}}">Wyniki</a></p>
+            <p class="p-3"><a href="{{path('vote_index')}}">Głosy</a></p>
+            <p class="p-3"><a href="{{ path('teacher_index') }}">Teacher List</a></p>
+            <p class="p-3"><a href="{{ path('category_index') }}">Category List</a></p>
+        </div>
         {% endblock %}
         {% block body %}
         {% endblock %}

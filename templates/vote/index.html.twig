@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vote index{% endblock %}
+
+{% block body %}
+    <h1>Vote index</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                {% for category in categories %}
+                    <th>{{category.name}}</th>
+                {% endfor %}
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vote in votes %}
+            <tr>
+                <td>{{ vote.id }}</td>
+                <td>{{ vote.date|date() }}</td>
+                {% for minivote in vote.minivotes|reverse %}
+                    <td>{{minivote.teacher.name}}</td>
+                {% endfor %}
+                <td><a href="{{ path('vote_edit', {'id': vote.id}) }}">Edytuj</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
