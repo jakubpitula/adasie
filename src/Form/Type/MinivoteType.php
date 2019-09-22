@@ -28,7 +28,8 @@ class MinivoteType extends AbstractType
         ->add('teacher', EntityType::class, [
             'class' => Teacher::class,
             'choice_label' => 'name',
-            'label' => false
+            'label' => false,
+            // 'placeholder' => 'wybie  rz'
         ])
         ;
     }

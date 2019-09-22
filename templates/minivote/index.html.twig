@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wyniki{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nauczyciel</th>
+                {% for category in categories %}
+                    <th>{{category.name}}
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for teacher in teachers %}
+            <tr>
+                <td>{{ teacher.name }}</td>
+                {% for category in categories %}
+                    <td 
+                    {% if counted[category.name][teacher.name] == maxes[category.name] %}
+                        class = "bg-success" 
+                    {% endif %}>
+                    {{ counted[category.name][teacher.name] }}</td>
+                {% endfor %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

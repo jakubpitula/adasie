@@ -23,11 +23,6 @@ class VoteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $categories = $options['data']->getCategories();
-        
-        foreach ($categories as $cat){
-            echo $cat->getName().' ';
-        }
         $builder->add('minivotes', CollectionType::class, [
             'entry_type' => MinivoteType::class,
             'entry_options' => [

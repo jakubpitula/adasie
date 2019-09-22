@@ -19,22 +19,36 @@ class MinivoteRepository extends ServiceEntityRepository
         parent::__construct($registry, Minivote::class);
     }
 
-    // /**
-    //  * @return Minivote[] Returns an array of Minivote objects
-    //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findNumberOfMinivotes($teacher, $category)
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+        $result = $this->createQueryBuilder('v')
+            ->andWhere('v.category = :cat')
+            ->andWhere('v.teacher = :teach')
+            ->setParameter('cat', $category)
+            ->setParameter('teach', $teacher)
             ->getQuery()
             ->getResult()
         ;
+
+        return count($result);
     }
-    */
+    // /**
+    //  * @return Minivote[] Returns an array of Minivote objects
+    //  */
+    
+    // public function findByExampleField($value)
+    // {
+    //     return $this->createQueryBuilder('m')
+    //         ->andWhere('m.exampleField = :val')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('m.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+    
 
     /*
     public function findOneBySomeField($value): ?Minivote

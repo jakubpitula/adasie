@@ -24,18 +24,12 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Vote", mappedBy="categories", cascade={"persist"})
-     */
-    private $votes;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="category", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="category", cascade={"persist", "remove"})
      */
     private $minivotes;
 
     public function __construct()
     {
-        $this->votes = new ArrayCollection();
         $this->minivotes = new ArrayCollection();
     }
 
@@ -52,34 +46,6 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Vote[]
-     */
-    public function getVotes(): Collection
-    {
-        return $this->votes;
-    }
-
-    public function addVote(Vote $vote): self
-    {
-        if (!$this->votes->contains($vote)) {
-            $this->votes[] = $vote;
-            $vote->addCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVote(Vote $vote): self
-    {
-        if ($this->votes->contains($vote)) {
-            $this->votes->removeElement($vote);
-            $vote->removeCategory($this);
-        }
 
         return $this;
     }
