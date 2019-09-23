@@ -66,7 +66,7 @@ class VoteController extends AbstractController
             $entityManager->persist($vote);
             $entityManager->flush();
     
-            return $this->redirectToRoute('vote');
+            return $this->redirectToRoute('completed');
         }
 
         return $this->render('vote/new.html.twig', [
@@ -119,5 +119,13 @@ class VoteController extends AbstractController
             'vote' => $vote,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+    * @Route("/completed", name="completed", methods={"GET"})
+    */
+    public function completed()
+    {
+        return $this->render('vote/finished.html.twig');
     }
 }
