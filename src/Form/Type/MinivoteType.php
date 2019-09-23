@@ -29,7 +29,7 @@ class MinivoteType extends AbstractType
             'class' => Teacher::class,
             'choice_label' => 'name',
             'label' => false,
-            // 'placeholder' => 'wybie  rz'
+            // 'placeholder' => 'wybierz'
         ])
         ;
     }

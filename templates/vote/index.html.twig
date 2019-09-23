@@ -20,7 +20,7 @@
             <tr>
                 <td>{{ vote.id }}</td>
                 <td>{{ vote.date|date() }}</td>
-                {% for minivote in vote.minivotes|reverse %}
+                {% for minivote in vote.minivotes %}
                     <td>{{minivote.teacher.name}}</td>
                 {% endfor %}
                 <td><a href="{{ path('vote_edit', {'id': vote.id}) }}">Edytuj</a></td>
