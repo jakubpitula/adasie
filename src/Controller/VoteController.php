@@ -119,6 +119,17 @@ class VoteController extends AbstractController
     }
 
     /**
+     * @Route("/votes/{id}/editdelete", name="vote_edit_delete", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function edit_delete(Request $request, Vote $vote): Response
+    {
+        return $this->render('vote/_delete_form.html.twig', [
+            'vote' => $vote,
+        ]);
+    }
+
+    /**
     * @Route("/completed", name="completed", methods={"GET"})
     */
     public function completed()
