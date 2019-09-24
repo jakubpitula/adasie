@@ -21,16 +21,17 @@ use App\Repository\VoteRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\MinivoteRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class VoteController extends AbstractController
 {
     /**
      * @Route("/", name="vote")
      */
-
     public function new (Request $request)
     {
+
         $vote = new Vote();
 
         $categories = $this->getDoctrine()
@@ -44,7 +45,9 @@ class VoteController extends AbstractController
             $vote->getMinivotes()->add($minivote);
         }
 
-        $form = $this->createForm(VoteType::class, $vote);
+        $form = $this->createForm(VoteType::class, $vote, [
+            'request' => $request
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

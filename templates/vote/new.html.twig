@@ -2,7 +2,6 @@
 {% block title %}Vote{% endblock %}
 
 {% block body %}
-    {# {{dump(form.minivotes)}} #}
 
     {{ form_start(form) }}
 
@@ -15,6 +14,9 @@
     </div>
     <div class="d-flex justify-content-center">
         {{form_row(form.submit, {'label': 'Zagłosuj!'})}}
+    </div>
+    <div class="d-flex justify-content-center">
+        {{form_errors(form)}}
     </div>
 {{ form_end(form) }}
 {% endblock %}
