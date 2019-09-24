@@ -9,7 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\MinivoteRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\TeacherRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * @IsGranted("ROLE_ADMIN")
+ */
 class MinivoteController extends AbstractController
 {
     /**

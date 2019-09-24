@@ -20,6 +20,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Repository\VoteRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\MinivoteRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class VoteController extends AbstractController
@@ -43,15 +44,6 @@ class VoteController extends AbstractController
             $vote->getMinivotes()->add($minivote);
         }
 
-        // $teachers = $this->getDoctrine()
-        // ->getRepository(Teacher::class)
-        // ->findAll();
-
-        // foreach($teachers as $teacher){
-        //     $vote->getTeachers()->add($teacher);
-        // }
-        // $count = count($categories);
-
         $form = $this->createForm(VoteType::class, $vote);
 
         $form->handleRequest($request);
@@ -71,12 +63,12 @@ class VoteController extends AbstractController
 
         return $this->render('vote/new.html.twig', [
             'form' => $form->createView(),
-            // 'categories' => $categories
         ]);
     }
 
     /**
      * @Route("/votes", name="vote_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(MinivoteRepository $minivoteRepository, VoteRepository $voteRepository, CategoryRepository $categoryRepository, TeacherRepository $teacherRepository): Response
     {
@@ -88,7 +80,8 @@ class VoteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="vote_delete", methods={"DELETE"})
+     * @Route("/votes/{id}", name="vote_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Vote $vote): Response
     {
@@ -102,7 +95,8 @@ class VoteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="vote_edit", methods={"GET","POST"})
+     * @Route("/votes/{id}/edit", name="vote_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Vote $vote): Response
     {
