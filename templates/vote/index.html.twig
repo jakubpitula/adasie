@@ -9,6 +9,7 @@
             <tr>
                 <th>Id</th>
                 <th>Date</th>
+                <th>Ip</th>
                 {% for category in categories %}
                     <th>{{category.name}}</th>
                 {% endfor %}
@@ -20,6 +21,7 @@
             <tr>
                 <td>{{ vote.id }}</td>
                 <td>{{ vote.date|date() }}</td>
+                <td>{{ vote.ip }}</td>
                 {% for minivote in vote.minivotes %}
                     <td>{{minivote.teacher.name}}</td>
                 {% endfor %}
