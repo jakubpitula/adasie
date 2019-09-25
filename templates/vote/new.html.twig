@@ -1,22 +1,33 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
 {% block title %}Vote{% endblock %}
 
 {% block body %}
-
-    {{ form_start(form) }}
-
-    <div class="row d-flex justify-content-center">
-    {% for minivote in form.minivotes %}
-        <div class="col-xs-4">
-            {{ form_row(minivote, {'label': minivote.vars.value.category.name}) }}
+    <div class="row d-flex justify-content-center m-3">
+        <div class="alert alert-warning">
+            <center>
+                Witaj w głosowaniu na Adasie 2019. <br>
+                W każdej kategorii wybierz nauczyciela, który, Twoim zdaniem, najlepiej do niej pasuje.<br>
+                Głosy zatwierdź przyciskiem <strong>Zagłosuj!</strong> na dole strony.<br>
+                Cieplutkie pozdrowionka od Szkolnej Rady Uczniowskiej.
+            </center>
         </div>
-    {% endfor %}
     </div>
-    <div class="d-flex justify-content-center">
-        {{form_row(form.submit, {'label': 'Zagłosuj!'})}}
-    </div>
-    <div class="d-flex justify-content-center">
-        {{form_errors(form)}}
+    {{ form_start(form) }}
+    <div class="container">
+        {# <div class="row d-flex justify-content-center"> #}
+        {% for minivote in form.minivotes %}
+            <div class="col-xs-4">
+                {{ form_row(minivote, {'label': minivote.vars.value.category.name}) }}
+            </div>
+        {% endfor %}
+        {# </div> #}
+        <div class="d-flex justify-content-center">
+            {{form_row(form.submit, {'label': 'Zagłosuj!'})}}
+        </div>
+        <div class="d-flex justify-content-center">
+            {{form_errors(form)}}
+        </div>
     </div>
 {{ form_end(form) }}
 {% endblock %}

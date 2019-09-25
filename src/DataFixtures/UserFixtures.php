@@ -20,11 +20,11 @@ class UserFixtures extends Fixture
     {
         $user = new User();
 
-        $user->setUsername('adasiowyadmin');
+        //$user->setUsername(''); USTAW USERNAME
         $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->passwordEncoder->encodePassword(
-            $user,
-            'admin'
+            $user
+            // '' USTAW HASŁO
         ));
 
         $manager->persist($user);
