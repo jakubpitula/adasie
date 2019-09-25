@@ -55,7 +55,7 @@ class VoteType extends AbstractType
             'validation_groups' => function (FormInterface $form) {
                 $entity = $form->getData();
 
-                return !in_array($entity->getIp(), $this->allowed) ? ['other'] : 'mine';
+                return !in_array($entity->getIp(), $this->allowed) ? 'other' : 'mine';
             }
         ]);
     }   
