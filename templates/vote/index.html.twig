@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vote index{% endblock %}
+{% block title %}Głosy{% endblock %}
 
 {% block body %}
-    <h1>Vote index</h1>
+    <h1>Głosy</h1>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Date</th>
+                <th>Data</th>
                 <th>Ip</th>
                 {% for category in categories %}
                     <th>{{category.name}}</th>
