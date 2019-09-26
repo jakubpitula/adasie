@@ -23,6 +23,7 @@ use App\Repository\MinivoteRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class VoteController extends AbstractController
 {
@@ -46,10 +47,17 @@ class VoteController extends AbstractController
         }
 
         $form = $this->createForm(VoteType::class, $vote, [
-            'request' => $request
+            'request' => $request,
         ]);
 
         $form->handleRequest($request);
+
+        if($request->cookies->get('voted') == 1){
+            return $this->render('vote/new.html.twig', [
+                'form' => $form->createView(),
+                'voted' => true
+            ]);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
@@ -61,6 +69,11 @@ class VoteController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($vote);
             $entityManager->flush();
+
+            $response = new Response();
+            $response->headers->setCookie(Cookie::create('voted', true));
+            $response->prepare($request);
+            $response->send();
     
             return $this->redirectToRoute('completed');
         }

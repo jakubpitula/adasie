@@ -23,11 +23,6 @@ use Symfony\Component\Form\FormInterface;
 
 class VoteType extends AbstractType
 {
-    private $allowed = [
-        '127.0.0.1',
-        '5.173.232.33'
-    ];
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
@@ -51,12 +46,7 @@ class VoteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Vote::class,
-            'request' => null,
-            'validation_groups' => function (FormInterface $form) {
-                $entity = $form->getData();
-
-                return !in_array($entity->getIp(), $this->allowed) ? 'other' : 'mine';
-            }
+            'request' => null
         ]);
     }   
 }
