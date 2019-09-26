@@ -52,14 +52,15 @@ class VoteController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($request->cookies->get('voted') == 1){
-            return $this->render('vote/new.html.twig', [
-                'form' => $form->createView(),
-                'voted' => true
-            ]);
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if($request->cookies->get('voted') == 1){
+                return $this->render('vote/new.html.twig', [
+                    'form' => $form->createView(),
+                    'voted' => true
+                ]);
+            }
+            
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $vote = $form->getData();
