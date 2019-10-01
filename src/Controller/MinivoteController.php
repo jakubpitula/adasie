@@ -23,7 +23,7 @@ class MinivoteController extends AbstractController
     {
         $minivotes = $minivoterepository->findAll();
         $categories = $categoryrepository->findAll();
-        $teachers = $teacherrepository->findAll();
+        $teachers = $teacherrepository->findAllBut('brak');
 
         $countedMinivotes = array(array());
 

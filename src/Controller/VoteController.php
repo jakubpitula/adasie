@@ -30,7 +30,7 @@ class VoteController extends AbstractController
     /**
      * @Route("/", name="vote")
      */
-    public function new (Request $request)
+    public function new (Request $request, TeacherRepository $teacherRepository)
     {
 
         $vote = new Vote();

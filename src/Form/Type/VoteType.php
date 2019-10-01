@@ -25,14 +25,14 @@ class VoteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $ip = $options['request']->getClientIp();
 
         $builder->add('minivotes', CollectionType::class, [
             'entry_type' => MinivoteType::class,
             'entry_options' => [
                 'label' => false,
-            ]
+            ],
+            
         ])
         ->add('ip', HiddenType::class,[
             'data' => $ip,
@@ -46,7 +46,7 @@ class VoteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Vote::class,
-            'request' => null
+            'request' => null,
         ]);
     }   
 }
