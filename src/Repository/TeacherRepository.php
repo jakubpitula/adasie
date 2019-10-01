@@ -20,22 +20,30 @@ class TeacherRepository extends ServiceEntityRepository
     }
     
 
-    // /**
-    //  * @return Teacher[] Returns an array of Teacher objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Teacher[] Returns an array of Teacher objects
+     */
+    
+    public function findByName($value)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+            ->andWhere('t.name = :val')
             ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function findAllBut($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.name != :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?Teacher

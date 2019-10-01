@@ -22,6 +22,7 @@ class Vote
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Minivote", mappedBy="vote", cascade={"persist", "remove"})
+     * @Assert\Valid
      */
     private $minivotes;
 

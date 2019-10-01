@@ -15,21 +15,31 @@ use App\Entity\Teacher;
 use App\Form\TeacherType;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Repository\TeacherRepository;
 use App\Entity\Category;
 use App\Entity\Vote;
 use App\Entity\Minivote;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 class MinivoteType extends AbstractType
 {
+    private $teacherRepository;
+
+    public function __construct(TeacherRepository $tr)
+    {
+        $this->teacherRepository = $tr;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
         ->add('teacher', EntityType::class, [
             'class' => Teacher::class,
             'choice_label' => 'name',
             'label' => false,
-            // 'placeholder' => 'wybierz'
+            'preferred_choices' => $this->teacherRepository->findByName('brak')
         ])
         ;
     }
