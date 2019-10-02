@@ -39,7 +39,11 @@ class MinivoteType extends AbstractType
             'class' => Teacher::class,
             'choice_label' => 'name',
             'label' => false,
-            'preferred_choices' => $this->teacherRepository->findByName('brak')
+            'preferred_choices' => $this->teacherRepository->findByName('brak'),
+            'query_builder' => function (TeacherRepository $r) {
+                return $r->createQueryBuilder('u')
+                    ->orderBy('u.name', 'ASC');
+            },
         ])
         ;
     }

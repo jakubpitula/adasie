@@ -39,9 +39,15 @@ class TeacherRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->andWhere('t.name != :val')
             ->setParameter('val', $value)
+            ->orderBy('t.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findAll()
+    {
+        return $this->findBy(array(), array('name' => 'ASC'));
     }
     
 
