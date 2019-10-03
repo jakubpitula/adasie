@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Teacher index{% endblock %}
+{% block title %}Nauczyciele{% endblock %}
 
 {% block body %}
-    <h1>Teacher index</h1>
+    <h1>Nauczyciele</h1>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Votes</th>
-                <th>actions</th>
+                <th>Imię i nazwisko</th>
+                <th>Głosy</th>
+                <th>Akcje</th>
             </tr>
         </thead>
         <tbody>
@@ -20,8 +20,8 @@
                 <td>{{ teacher.name }}</td>
                 <td>{{teacher.minivotes|length}}</td>
                 <td>
-                    <a href="{{ path('teacher_show', {'id': teacher.id}) }}">show</a>
-                    <a href="{{ path('teacher_edit', {'id': teacher.id}) }}">edit</a>
+                    <a href="{{ path('teacher_show', {'id': teacher.id}) }}">pokaż</a>
+                    <a href="{{ path('teacher_edit', {'id': teacher.id}) }}">edytuj</a>
                 </td>
             </tr>
         {% else %}
@@ -32,5 +32,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('teacher_new') }}">Create new</a>
+    <a href="{{ path('teacher_new') }}">Dodaj nauczyciela</a>
 {% endblock %}

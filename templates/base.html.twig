@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +13,7 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         {% endblock %}
     </head>
-    <body style="min-height: 100vh; position: relative;">
+    <body style="min-height: 100vh; position: relative; background-image: linear-gradient(#3e666d, #94bac4); color: white;">
         <div class="ml-5 mr-5 pb-5">
             {% block header %}
             {% if is_granted('ROLE_ADMIN') %}
@@ -37,4 +38,6 @@
         {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
+
+    <style>@supports (-moz-appearance:meterbar){ .col-sm-10{min-width:90vw !important; }}</style>
 </html>
