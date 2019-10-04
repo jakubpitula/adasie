@@ -1,12 +1,20 @@
 {% extends 'bootstrap_4_layout.html.twig' %}
 
+{% block stylesheets %}
+    	<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="resources/css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="resources/css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="resources/css/cs-select.css" />
+		<link rel="stylesheet" type="text/css" href="resources/css/cs-skin-border.css" />
+{% endblock stylesheets %}
+
 {%- block choice_widget_collapsed -%}
     {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
         {% set required = false %}
     {%- endif -%}
-    <select class="custom-select custom-select-lg text-center" style="height:100px; font-size: 50px; text-align-last: center; background-color: #dddddd; color: black;" {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+    <select class="cs-select cs-skin-border" {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {%- if placeholder is not none -%}
-            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+            <option value="" selected="selected" disabled>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
         {%- endif -%}
         {%- if preferred_choices|length > 0 -%}
             {% set options = preferred_choices %}

@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 class VoteController extends AbstractController
 {
     /**
-     * @Route("/", name="vote")
+     * @Route("/vote", name="vote")
      */
     public function new (Request $request, TeacherRepository $teacherRepository)
     {
@@ -48,6 +48,7 @@ class VoteController extends AbstractController
 
         $form = $this->createForm(VoteType::class, $vote, [
             'request' => $request,
+            'vote' => $vote
         ]);
 
         $form->handleRequest($request);
@@ -85,7 +86,7 @@ class VoteController extends AbstractController
     }
 
     /**
-     * @Route("/votes", name="vote_index", methods={"GET"})
+     * @Route("/votes", name="vote_index", methods={"GET", "POST"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function index(MinivoteRepository $minivoteRepository, VoteRepository $voteRepository, CategoryRepository $categoryRepository, TeacherRepository $teacherRepository): Response
@@ -150,5 +151,13 @@ class VoteController extends AbstractController
     public function completed()
     {
         return $this->render('vote/finished.html.twig');
+    }
+
+    /**
+    * @Route("/", name="welcome", methods={"GET"})
+    */
+    public function welcome()
+    {
+        return $this->render('vote/welcome.html.twig');
     }
 }
