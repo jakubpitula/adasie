@@ -6,6 +6,14 @@
 
 {% block body %}
 	<section>
+	    {% if voted is defined %}
+            <div class="d-flex justify-content-center">
+				<span class="d-block">
+					<span class="form-error-icon badge badge-danger text-uppercase">Błąd</span> 
+					<span class="form-error-message" style="color:black;">Można zagłosować tylko raz.</span>
+				</span>
+            </div>
+        {% endif %}
 		{{ form_start(form) }}
 		{% for minivote in form.minivotes %}
 				<div class="wrap">
@@ -23,14 +31,6 @@
         <div class="d-flex justify-content-center">
             {{form_errors(form)}}
         </div>
-        {% if voted is defined %}
-            <div class="d-flex justify-content-center">
-				<span class="d-block">
-					<span class="form-error-icon badge badge-danger text-uppercase">Błąd</span> 
-					<span class="form-error-message" style="color:black;">Można zagłosować tylko raz.</span>
-				</span>
-            </div>
-        {% endif %}
 		{{ form_end(form) }}
 	</section>
 {% endblock %}
