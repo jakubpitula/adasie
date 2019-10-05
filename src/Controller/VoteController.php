@@ -72,13 +72,12 @@ class VoteController extends AbstractController
             $entityManager->persist($vote);
             $entityManager->flush();
 
-            $response = new Response();
-            $response->headers->setCookie(Cookie::create('voted', true));
-            $response->prepare($request);
-            $response->send();
+            // $response = new Response();
+            // $response->headers->setCookie(Cookie::create('voted', true));
+            // $response->prepare($request);
+            // $response->send();
     
-            // return $this->redirectToRoute('completed');
-            return $this->render('vote/finished.html.twig');
+            return $this->redirectToRoute('completed');
         }
 
         return $this->render('vote/new.html.twig', [
