@@ -146,7 +146,7 @@ class VoteController extends AbstractController
     }
 
     /**
-    * @Route("/completed", name="completed", methods={"GET"})
+    * @Route("/completed", name="completed", methods={"GET", "POST"})
     */
     public function completed()
     {
