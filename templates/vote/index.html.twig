@@ -22,7 +22,7 @@
                 <td>{{ vote.id }}</td>
                 <td>{{ vote.date|date() }}</td>
                 <td>{{ vote.ip }}</td>
-                {% for minivote in vote.minivotes %}
+                {% for minivote in vote.minivotes|reverse %}
                     <td>{{minivote.teacher.name}}</td>
                 {% endfor %}
                 <td><a href="{{ path('vote_edit_delete', {'id': vote.id}) }}">Usuń</a></td>
