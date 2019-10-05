@@ -24,7 +24,7 @@ body {
 	font-family: 'Raleway', Arial, sans-serif;
 }
 
-body::before,
+/* body::before,
 body::after {
 	content: '';
 	position: fixed;
@@ -34,7 +34,7 @@ body::after {
 	height: 25px;
 	background: #fff;
 	z-index: 1001;
-}
+} */
 
 body::after {
 	top: auto;
