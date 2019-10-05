@@ -20,11 +20,7 @@
                 {% for category in categories %}
                     <td 
                     {% if counted[category.name][teacher.name] == maxes[category.name] %}
-                        class = "bg-success" 
-                    {% elseif counted[category.name][teacher.name] == seconds[category.name] %}
-                        class = "bg-warning" 
-                    {% elseif counted[category.name][teacher.name] == thirds[category.name] %}
-                        class = "bg-danger" 
+                        class = "bg-success"
                     {% endif %}>
                     {{ counted[category.name][teacher.name] }}</td>
                 {% endfor %}

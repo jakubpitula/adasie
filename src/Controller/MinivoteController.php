@@ -34,14 +34,8 @@ class MinivoteController extends AbstractController
         }
 
         $maxInCategory = array();
-        $secondInCategory = array();
-        $thirdInCategory = array();
-
         foreach($categories as $category){
-            $sorted = rsort($countedMinivotes[$category->getName()]);
-            $maxInCategory[$category->getName()] = $sorted[0];
-            $secondInCategory[$category->getName()] = $sorted[1];
-            $thirdInCategory[$category->getName()] = $sorted[3];
+            $maxInCategory[$category->getName()] = max($countedMinivotes[$category->getName()]);
         }
 
         return $this->render('minivote/index.html.twig', [
@@ -50,8 +44,6 @@ class MinivoteController extends AbstractController
             'teachers' => $teachers,
             'counted' => $countedMinivotes,
             'maxes' => $maxInCategory,
-            'seconds' => $secondInCategory,
-            'thirds' => $thirdInCategory
         ]);
     }
 }
