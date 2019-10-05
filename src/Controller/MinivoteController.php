@@ -38,28 +38,10 @@ class MinivoteController extends AbstractController
         $thirdInCategory = array();
 
         foreach($categories as $category){
-            $max = $second = $third = 0;
-            $array = $countedMinivotes[$category->getName()];
-            for($i=0; $i<count($array); $i++){
-                if($array[$i] > $max)
-                {
-                    $third = $second;
-                    $second = $max;
-                    $max = $array[$i];
-                }
-                else if($array[$i] > $second)
-                {
-                    $third = $second;
-                    $second = $array[$i];
-                }
-                else if($array[i] > $third)
-                {
-                    $third = $array[i];
-                }
-            }
-            $maxInCategory[$category->getName()] = $max;
-            $secondInCategory[$category->getName()] = $second;
-            $thirdInCategory[$category->getName()] = $third;
+            $sorted = rsort($countedMinivotes[$category->getName()]);
+            $maxInCategory[$category->getName()] = $sorted[0];
+            $secondInCategory[$category->getName()] = $sorted[1];
+            $thirdInCategory[$category->getName()] = $sorted[3];
         }
 
         return $this->render('minivote/index.html.twig', [
