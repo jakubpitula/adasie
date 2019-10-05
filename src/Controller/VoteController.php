@@ -77,7 +77,8 @@ class VoteController extends AbstractController
             $response->prepare($request);
             $response->send();
     
-            return $this->redirectToRoute('completed');
+            // return $this->redirectToRoute('completed');
+            return $this->render('vote/finished.html.twig');
         }
 
         return $this->render('vote/new.html.twig', [
