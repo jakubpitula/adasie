@@ -39,7 +39,7 @@ class Vote
     public function __construct()
     {
         $this->minivotes = new ArrayCollection();
-        $this->date = new \DateTime('now', 'Europe/Warsaw');
+        $this->date = new \DateTime('now', new \DateTimeZone('Europe/Warsaw'));
     }
 
     public function getId(): ?int
