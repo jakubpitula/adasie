@@ -6,6 +6,8 @@
 /public/bundles/
 /var/
 /vendor/
+.env
+adasie.bundle
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
