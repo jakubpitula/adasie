@@ -9,7 +9,6 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 /**
  * @method Teacher|null find($id, $lockMode = null, $lockVersion = null)
  * @method Teacher|null findOneBy(array $criteria, array $orderBy = null)
- * @method Teacher[]    findAll()
  * @method Teacher[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class TeacherRepository extends ServiceEntityRepository
@@ -18,7 +17,16 @@ class TeacherRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Teacher::class);
     }
-    
+
+    public function cmp($a, $b){
+        $a->getName() != 'brak' ? $aName = $a->getName() : $aName = 'brak  ';
+        $b->getName() != 'brak' ? $bName = $b->getName() : $bName = 'brak  ';
+
+        list($firstNameA, $lastNameA) = explode(" ", $aName, 2);
+        list($firstNameB, $lastNameB) = explode(" ", $bName, 2);
+
+        return strcmp($lastNameA, $lastNameB);
+    }
 
     /**
      * @return Teacher[] Returns an array of Teacher objects
@@ -36,18 +44,24 @@ class TeacherRepository extends ServiceEntityRepository
 
     public function findAllBut($value)
     {
-        return $this->createQueryBuilder('t')
+        $teachers = $this->createQueryBuilder('t')
             ->andWhere('t.name != :val')
             ->setParameter('val', $value)
             ->orderBy('t.name', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+
+        usort($teachers, array($this, 'cmp'));
+
+        return $teachers;
     }
 
     public function findAll()
     {
-        return $this->findBy(array(), array('name' => 'ASC'));
+        $teachers = $this->findBy(array(), array('name' => 'ASC'));
+        usort($teachers, array($this, 'cmp'));
+
+        return $teachers;
     }
     
 

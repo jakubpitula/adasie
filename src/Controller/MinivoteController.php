@@ -21,10 +21,10 @@ class MinivoteController extends AbstractController
      */
     public function index(MinivoteRepository $minivoterepository, CategoryRepository $categoryrepository, TeacherRepository $teacherrepository): Response
     {
+        set_time_limit(300);
         $minivotes = $minivoterepository->findAll();
         $categories = $categoryrepository->findAll();
         $teachers = $teacherrepository->findAllBut('brak');
-
         $countedMinivotes = array(array());
 
         foreach($categories as $category){

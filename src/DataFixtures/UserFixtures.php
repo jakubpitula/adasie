@@ -20,11 +20,10 @@ class UserFixtures extends Fixture
     {
         $user = new User();
 
-        // $user->setUsername('');
+        $user->setUsername('');
         $user->setRoles([]);
         $user->setPassword($this->passwordEncoder->encodePassword(
-            $user
-            // ''
+            $user, ''
         ));
 
         $manager->persist($user);

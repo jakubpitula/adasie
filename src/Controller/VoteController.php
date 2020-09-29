@@ -66,7 +66,6 @@ class VoteController extends AbstractController
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $vote = $form->getData();
-    
             // ... perform some action, such as saving the task to the database
             // for example, if Task is a Doctrine entity, save it!
             $entityManager = $this->getDoctrine()->getManager();
